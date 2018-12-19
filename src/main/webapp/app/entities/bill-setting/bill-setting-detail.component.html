@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="billSetting">
+            <h2><span>Bill Setting</span> {{billSetting.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Type Bill</span></dt>
+                <dd>
+                    <span>{{billSetting.typeBill}}</span>
+                </dd>
+                <dt><span>Price Per KW</span></dt>
+                <dd>
+                    <span>{{billSetting.pricePerKW}} <strong>円</strong></span>
+                </dd>
+                <dt><span>Discount</span></dt>
+                <dd>
+                    <span>{{billSetting.discount}} <strong>%</strong></span>
+                </dd>
+                <dt><span>Tax</span></dt>
+                <dd>
+                    <span>{{billSetting.tax}} <strong>%</strong></span>
+                </dd>
+                <dt><span>Processing</span></dt>
+                <dd>
+                    <span>{{billSetting.processing}} <strong>円</strong></span>
+                </dd>
+                <dt><span>Enabled</span></dt>
+                <dd>
+                    <span>{{billSetting.enabled}}</span>
+                </dd>
+                <dt><span>Date Created</span></dt>
+                <dd>
+                    <span>{{billSetting.dateCreated}}</span>
+                </dd>
+                <dt><span>Date Modified</span></dt>
+                <dd>
+                    <span>{{billSetting.dateModified}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/bill-setting', billSetting.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

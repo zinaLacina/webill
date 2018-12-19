@@ -1,0 +1,77 @@
+<div>
+    <h2 id="page-heading">
+        <span>Settings</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-setting" [routerLink]="['/setting/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Setting
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="settings">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companyName"><span>Company Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companyLogo"><span>Company Logo</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companyNumber"><span>Company Number</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="companyAddress"><span>Company Address</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="dateCreated"><span>Date Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <!--<th jhiSortBy="dateModified"><span>Date Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let setting of settings ;trackBy: trackId">
+                <td><a [routerLink]="['/setting', setting.id, 'view' ]">{{setting.id}}</a></td>
+                <td>{{setting.companyName}}</td>
+                <td>
+                    <!--<a *ngIf="setting.companyLogo" (click)="openFile(setting.companyLogoContentType, setting.companyLogo)">open</a>-->
+                    <span *ngIf="setting.companyLogo">
+                        <img [src]="setting.companyLogo" alt="" width="50px" height="auto">
+                    </span>
+                </td>
+                <td>{{setting.companyNumber}}</td>
+                <td>{{setting.companyAddress}}</td>
+                <!--<td>{{setting.dateCreated | date:'medium'}}</td>-->
+                <!--<td>{{setting.dateModified | date:'medium'}}</td>-->
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/setting', setting.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/setting', setting.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'setting/'+ setting.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="settings && settings.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

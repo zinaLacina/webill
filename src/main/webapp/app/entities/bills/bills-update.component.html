@@ -1,0 +1,129 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-bills-heading">Create or edit a Bills</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!bills.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="bills.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastMonthReading">Last Month Reading</label>
+                    <input type="number" class="form-control" name="lastMonthReading" id="field_lastMonthReading"
+                        [(ngModel)]="bills.lastMonthReading" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_currentMonthReading">Current Month Reading</label>
+                    <input type="number" class="form-control" name="currentMonthReading" id="field_currentMonthReading"
+                        [(ngModel)]="bills.currentMonthReading" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_deadline">Deadline</label>
+                    <div class="d-flex">
+                        <input id="field_deadline" type="datetime-local" class="form-control" name="deadline" [(ngModel)]="deadline"
+                        />
+                    </div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" for="field_billFile">Bill File</label>-->
+                    <!--<div>-->
+                        <!--<div *ngIf="bills.billFile" class="form-text text-danger clearfix">-->
+                            <!--<a class="pull-left" (click)="openFile(bills.billFile, bills.billFile)">open</a><br>-->
+                            <!--<span class="pull-left">{{bills.billFileContentType}}, {{byteSize(bills.billFile)}}</span>-->
+                            <!--<button type="button" (click)="bills.billFile=null;bills.billFileContentType=null;"-->
+                                    <!--class="btn btn-secondary btn-xs pull-right">-->
+                                <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                            <!--</button>-->
+                        <!--</div>-->
+                        <!--<input type="file" id="file_billFile" (change)="setFileData($event, bills, 'billFile', false)"/>-->
+                    <!--</div>-->
+                    <!--<input type="hidden" class="form-control" name="billFile" id="field_billFile"-->
+                        <!--[(ngModel)]="bills.billFile" />-->
+                    <!--<input type="hidden" class="form-control" name="billFileContentType" id="field_billFileContentType"-->
+                        <!--[(ngModel)]="bills.billFileContentType" />-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" for="field_imageFile">Image File</label>-->
+                    <!--<div>-->
+                        <!--<div *ngIf="bills.imageFile" class="form-text text-danger clearfix">-->
+                            <!--<a class="pull-left" (click)="openFile(bills.imageFileContentType, bills.imageFile)">open</a><br>-->
+                            <!--<span class="pull-left">{{bills.imageFileContentType}}, {{byteSize(bills.imageFile)}}</span>-->
+                            <!--<button type="button" (click)="bills.imageFile=null;bills.imageFileContentType=null;"-->
+                                    <!--class="btn btn-secondary btn-xs pull-right">-->
+                                <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                            <!--</button>-->
+                        <!--</div>-->
+                        <!--<input type="file" id="file_imageFile" (change)="setFileData($event, bills, 'imageFile', false)"/>-->
+                    <!--</div>-->
+                    <!--<input type="hidden" class="form-control" name="imageFile" id="field_imageFile"-->
+                        <!--[(ngModel)]="bills.imageFile" />-->
+                    <!--<input type="hidden" class="form-control" name="imageFileContentType" id="field_imageFileContentType"-->
+                        <!--[(ngModel)]="bills.imageFileContentType" />-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label class="form-control-label" for="field_amount">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                        [(ngModel)]="bills.amount" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_enabled">Enabled</label>
+                    <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                        [(ngModel)]="bills.enabled" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateCreated">Date Created</label>
+                    <div class="d-flex">
+                        <input id="field_dateCreated" type="datetime-local" class="form-control" name="dateCreated" [(ngModel)]="dateCreated"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateModified">Date Modified</label>
+                    <div class="d-flex">
+                        <input id="field_dateModified" type="datetime-local" class="form-control" name="dateModified" [(ngModel)]="dateModified"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ownerUser">Owner User</label>
+                    <select class="form-control" id="field_ownerUser" name="ownerUser" [(ngModel)]="bills.ownerUser" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === bills.ownerUser?.id ? bills.ownerUser : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_verifierUser">Verifier User</label>
+                    <select class="form-control" id="field_verifierUser" name="verifierUser" [(ngModel)]="bills.verifierUser" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === bills.verifierUser?.id ? bills.verifierUser : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_verifierMetricBill">Verifier Metric Bill</label>
+                    <select class="form-control" id="field_verifierMetricBill" name="verifierMetricBill" [(ngModel)]="bills.verifierMetricBill" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="assignMetersOption.id === bills.verifierMetricBill?.id ? bills.verifierMetricBill : assignMetersOption" *ngFor="let assignMetersOption of assignmeters; trackBy: trackAssignMetersById">{{assignMetersOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_billSettingApp">Bill Setting App</label>
+                    <select class="form-control" id="field_billSettingApp" name="billSettingApp" [(ngModel)]="bills.billSettingApp" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="billSettingOption.id === bills.billSettingApp?.id ? bills.billSettingApp : billSettingOption" *ngFor="let billSettingOption of billsettings; trackBy: trackBillSettingById">{{billSettingOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

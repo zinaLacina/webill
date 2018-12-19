@@ -1,0 +1,65 @@
+{
+    "name": "AssignMeters",
+    "fields": [
+        {
+            "fieldName": "startMonth",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "endMonth",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "startDay",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "endDay",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "year",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "reasonEnd",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "enabled",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "updateAt",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "metersUser",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "historyMeterUser",
+            "otherEntityName": "meters",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181016140107",
+    "javadoc": "HistoryMeters entity.\n@author CreativeGoup.",
+    "entityTableName": "assign_meters",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

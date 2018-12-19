@@ -1,0 +1,119 @@
+<div>
+    <h2 id="page-heading">
+        <span>Bills</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-bills" [routerLink]="['/bills/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Bills
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="bills">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastMonthReading"><span>Last Month Reading</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="currentMonthReading"><span>Current Month Reading</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="deadline"><span>Deadline</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="billFile"><span>Bill File</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="imageFile"><span>Image File</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="amount"><span>Amount</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="enabled"><span>Enabled</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <!--<th jhiSortBy="dateCreated"><span>Date Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <!--<th jhiSortBy="dateModified"><span>Date Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="ownerUser.id"><span>Owner User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="verifierUser.id"><span>Verifier User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="verifierMetricBill.id"><span>Assign meter</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="billSettingApp.id"><span>Bill Setting variable</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let bills of bills ;trackBy: trackId" [ngClass]="[bills.enabled==true?'green':'orange', bills.notRejected==false?'red':'']" >
+                <td><a [routerLink]="['/bills', bills.id, 'view' ]">{{bills.id}}</a></td>
+                <td>{{bills.lastMonthReading}}</td>
+                <td>{{bills.currentMonthReading}}</td>
+                <td>{{bills.deadline | date:'medium'}}</td>
+                <td>
+                    <!--<a *ngIf="bills.billFile" (click)="openFile(bills.billFileContentType, bills.billFile)">open</a>-->
+                    <!--<span *ngIf="bills.billFile">{{bills.billFileContentType}}, {{byteSize(bills.billFile)}}</span>-->
+                    <img [src]="bills.imageFile" *ngIf="">
+                </td>
+                <td>
+                    <!--<a *ngIf="bills.imageFile" (click)="openFile(bills.imageFileContentType, bills.imageFile)">open</a>-->
+                    <!--<span *ngIf="bills.imageFile">{{bills.imageFileContentType}}, {{byteSize(bills.imageFile)}}</span>-->
+                </td>
+                <td>{{bills.amount}}</td>
+                <td>{{bills.enabled}}</td>
+                <!--<td>{{bills.dateCreated | date:'medium'}}</td>-->
+                <!--<td>{{bills.dateModified | date:'medium'}}</td>-->
+                <td>
+                    {{bills.ownerUser?.login}}
+                </td>
+                <td>
+                    {{bills.verifierUser?.login}}
+                </td>
+                <td>
+                    <div *ngIf="bills.verifierMetricBill">
+                        <a [routerLink]="['../assign-meters', bills.verifierMetricBill?.id, 'view' ]" >{{bills.verifierMetricBill?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="bills.billSettingApp">
+                        <a [routerLink]="['../bill-setting', bills.billSettingApp?.id, 'view' ]" >{{bills.billSettingApp?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/bills', bills.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+
+                        <button class="btn btn-danger btn-sm" (click)="setActive(bills, false)" *ngIf="bills.enabled && bills.billFile!=null">
+                            Reject
+                        </button>
+                        <button class="btn btn-success btn-sm" (click)="setActive(bills, true)" *ngIf="!bills.enabled && bills.billFile!=null">
+                            Accept
+                        </button>
+                            <button class="btn btn-danger btn-sm" (click)="setActive(bills, false)" *ngIf="bills.billFile==null">
+                                Reject
+                            </button>
+                            <button class="btn btn-success btn-sm" (click)="setActive(bills, true)" *ngIf="bills.billFile==null">
+                                Accept
+                            </button>
+
+                        <!--<button type="submit"-->
+                                <!--[routerLink]="['/bills', bills.id, 'edit']"-->
+                                <!--class="btn btn-primary btn-sm">-->
+                            <!--<fa-icon [icon]="'pencil-alt'"></fa-icon>-->
+                            <!--<span class="d-none d-md-inline">Edit</span>-->
+                        <!--</button>-->
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'bills/'+ bills.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="bills && bills.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

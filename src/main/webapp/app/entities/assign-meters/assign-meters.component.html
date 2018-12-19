@@ -1,0 +1,84 @@
+<div>
+    <h2 id="page-heading">
+        <span>Assign Meters</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-assign-meters" [routerLink]="['/assign-meters/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Assign Meters
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="assignMeters">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="metersUser.id"><span>User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="historyMeterUser.id"><span>Meter</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="startDateContract"><span>Start Date contract</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="endDateContract"><span>End Date Contract</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="reasonEnd"><span>Reason End</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="enabled"><span>Enabled</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdAt"><span>Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="updateAt"><span>Update At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let assignMeters of assignMeters ;trackBy: trackId">
+                <td><a [routerLink]="['/assign-meters', assignMeters.id, 'view' ]">{{assignMeters.id}}</a></td>
+                <td>
+                    {{assignMeters.metersUser?.login}}
+                </td>
+                <td>
+                    <div *ngIf="assignMeters.historyMeterUser">
+                        <a [routerLink]="['../meters', assignMeters.historyMeterUser?.id, 'view' ]" >{{assignMeters.historyMeterUser?.addressMeters}}</a>
+                    </div>
+                </td>
+                <td>{{assignMeters.startDateContract}}</td>
+                <td>{{assignMeters.endDateContract}}</td>
+                <td>{{assignMeters.reasonEnd}}</td>
+                <td>{{assignMeters.enabled}}</td>
+                <td>{{assignMeters.createdAt | date:'medium'}}</td>
+                <td>{{assignMeters.updateAt | date:'medium'}}</td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/assign-meters', assignMeters.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/assign-meters', assignMeters.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'assign-meters/'+ assignMeters.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="assignMeters && assignMeters.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

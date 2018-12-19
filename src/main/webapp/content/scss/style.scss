@@ -1,0 +1,89 @@
+body {
+    background-color: #ffffff;
+    .alert-info {
+        position: relative;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border-radius: 2px;
+        background-color: #cdeefd;
+        border-color: #b8e7fc;
+        .alert-link {
+            text-decoration: underline;
+            font-weight: normal;
+
+            //color: #fff;
+        }
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #009688;
+        border-color: #009688;
+    }
+    .footer {
+        bottom: 0;
+        left: 0;
+        color: #666;
+        background: #eee;
+        border-top: 1px solid silver;
+        position: fixed;
+        width: 100%;
+        padding: 10px;
+        padding-bottom: 0;
+        text-align: center;
+        z-index: 2;
+        font-size: 0.9em;
+
+        p {
+            margin-bottom: 7px;
+        }
+    }
+    .card {
+        border: none;
+    }
+    .alert-warning {
+        color: #852d12;
+        background-color: #ffddd3;
+        border-color: #ffd0c1;
+    }
+    .btn-info {
+        color: #fff;
+        background-color: #178bd2;
+        border-color: #178bd2;
+    }
+    agm-map {
+        height: 300px;
+    }
+    agm-map#map-list{
+        height: 400px;
+    }
+    .mt-1, .my-1 {
+
+        margin-top: 0.25rem !important;
+
+    }
+    .d-md-inline {
+
+        display: inline !important;
+
+    }
+    tr.green {
+        /* background-color: green; */
+        /* color: white; */
+        border: 3px solid green;
+    }
+    tr.red {
+        /* background-color: green; */
+        /* color: white; */
+        border: 3px solid red;
+    }
+    tr.orange{
+        border: 3px solid orange;
+    }
+    button.red{
+        background-color: red;
+    }
+    button.green{
+        background-color: green;
+    }
+}

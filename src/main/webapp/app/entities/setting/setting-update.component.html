@@ -1,0 +1,97 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-setting-heading">Create or edit a Setting</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!setting.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="setting.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_companyName">Company Name</label>
+                    <input type="text" class="form-control" name="companyName" id="field_companyName" #nomCompany="ngModel"
+                        [(ngModel)]="setting.companyName" required minlength="2" maxlength="70" />
+                    <div *ngIf="nomCompany.dirty && nomCompany.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="nomCompany.errors.required">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="nomCompany.errors.maxlength"
+                        >
+                            This field cannot be longer than 70 characters.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="nomCompany.errors.minlength">
+                            This field cannot be less than 2 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_companyLogo">Company Logo</label>
+                    <div>
+
+                        <input type="file" class="form-control" name="companyLogo" id="field_companyLogo" (change)="setFileData($event)"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_companyNumber">Company Number</label>
+                    <input type="text" class="form-control" name="companyNumber" id="field_companyNumber" #numberCompany="ngModel"
+                        [(ngModel)]="setting.companyNumber" required minlength="5" maxlength="15" />
+                    <div *ngIf="numberCompany.dirty && numberCompany.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="numberCompany.errors.required">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="numberCompany.errors.maxlength"
+                        >
+                            This field cannot be longer than 15 characters.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="numberCompany.errors.minlength">
+                            This field cannot be less than 5 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_companyAddress">Company Address</label>
+                    <input type="text" class="form-control" name="companyAddress" id="field_companyAddress" #addressCompany="ngModel"
+                        [(ngModel)]="setting.companyAddress" required minlength="2" maxlength="120" />
+                    <div *ngIf="addressCompany.dirty && addressCompany.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="addressCompany.errors.required">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="addressCompany.errors.maxlength"
+                        >
+                            This field cannot be longer than 120 characters.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="addressCompany.errors.minlength">
+                            This field cannot be less than 2 characters.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

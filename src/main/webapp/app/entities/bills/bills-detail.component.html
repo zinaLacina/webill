@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="bills">
+            <h2><span>Bills</span> {{bills.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Last Month Reading</span></dt>
+                <dd>
+                    <span>{{bills.lastMonthReading}}</span>
+                </dd>
+                <dt><span>Current Month Reading</span></dt>
+                <dd>
+                    <span>{{bills.currentMonthReading}}</span>
+                </dd>
+                <dt><span>Deadline</span></dt>
+                <dd>
+                    <span>{{bills.deadline}}</span>
+                </dd>
+                <dt><span>Bill File</span></dt>
+                <!--<dd>-->
+                    <!--<div *ngIf="bills.billFile">-->
+                        <!--<a (click)="openFile(bills.billFileContentType, bills.billFile)">open</a>-->
+                        <!--{{bills.billFileContentType}}, {{byteSize(bills.billFile)}}-->
+                    <!--</div>-->
+                <!--</dd>-->
+                <!--<dt><span>Image File</span></dt>-->
+                <!--<dd>-->
+                    <!--<div *ngIf="bills.imageFile">-->
+                        <!--<a (click)="openFile(bills.imageFileContentType, bills.imageFile)">open</a>-->
+                        <!--{{bills.imageFileContentType}}, {{byteSize(bills.imageFile)}}-->
+                    <!--</div>-->
+                <!--</dd>-->
+                <dt><span>Amount</span></dt>
+                <dd>
+                    <span>{{bills.amount}}</span>
+                </dd>
+                <dt><span>Enabled</span></dt>
+                <dd>
+                    <span>{{bills.enabled}}</span>
+                </dd>
+                <dt><span>Date Created</span></dt>
+                <dd>
+                    <span>{{bills.dateCreated}}</span>
+                </dd>
+                <dt><span>Date Modified</span></dt>
+                <dd>
+                    <span>{{bills.dateModified}}</span>
+                </dd>
+                <dt><span>Owner User</span></dt>
+                <dd>
+                    {{bills.ownerUser?.id}}
+                </dd>
+                <dt><span>Verifier User</span></dt>
+                <dd>
+                    {{bills.verifierUser?.id}}
+                </dd>
+                <dt><span>Verifier Metric Bill</span></dt>
+                <dd>
+                    <div *ngIf="bills.verifierMetricBill">
+                        <a [routerLink]="['/assign-meters', bills.verifierMetricBill?.id, 'view']">{{bills.verifierMetricBill?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Bill Setting App</span></dt>
+                <dd>
+                    <div *ngIf="bills.billSettingApp">
+                        <a [routerLink]="['/bill-setting', bills.billSettingApp?.id, 'view']">{{bills.billSettingApp?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/bills', bills.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

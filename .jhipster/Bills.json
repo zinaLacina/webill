@@ -1,0 +1,79 @@
+{
+    "name": "Bills",
+    "fields": [
+        {
+            "fieldName": "lastMonthReading",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "currentMonthReading",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "deadline",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "billFile",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "imageFile",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "enabled",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "dateCreated",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "dateModified",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "ownerUser",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "verifierUser",
+            "otherEntityName": "user",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "verifierMetricBill",
+            "otherEntityName": "assignMeters",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "billSettingApp",
+            "otherEntityName": "billSetting",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20181016140108",
+    "javadoc": "Bills entity.\n@author CreativeGoup.",
+    "entityTableName": "bills",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

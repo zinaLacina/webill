@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="billsend">
+            <h2><span>Bill of the month {{billsend.dateCreated}}</span> </h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <!--view for submission-->
+            <dl class="row-md jh-entity-details" *ngIf="!billsend.enabled">
+                <dt><span>Image submitted</span></dt>
+                <dd>
+                    <span>
+                        <img [src]="billsend.imageFile" alt="" width="50px" height="auto">
+                    </span>
+                </dd>
+                <dt><span>Date Created</span></dt>
+                <dd>
+                    <span>{{billsend.dateCreated}}</span>
+                </dd>
+                <dt><span>Date Modified</span></dt>
+                <dd>
+                    <span>{{billsend.dateModified}}</span>
+                </dd>
+            </dl>
+            <div class="row pdf-file" *ngIf="billsend.enabled">
+                <div class="container pdf-content">
+                    <div class="pull-right">
+                        <a [attr.href]="billsend.billFile" class="btn btn-success btn-sm">
+                            Download
+                        </a>
+                    </div>
+                    <pdf-viewer [src]="billsend.billFile"
+                                [render-text]="true"
+                                style="display: block;" >
+
+                    </pdf-viewer>
+                </div>
+
+            </div>
+            <!--View for ready bill-->
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <!--<button type="button"-->
+                    <!--[routerLink]="['/billsend', billsend.id, 'edit']"-->
+                    <!--class="btn btn-primary">-->
+                <!--<fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>-->
+            <!--</button>-->
+        </div>
+    </div>
+</div>

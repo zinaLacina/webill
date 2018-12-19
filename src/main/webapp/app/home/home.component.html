@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-md-4">
+        <span class="hipster img-fluid rounded"></span>
+    </div>
+    <div class="col-md-8">
+        <div class="col-md-11 p-0">
+            <jhi-alert></jhi-alert>
+        </div>
+        <h1 *ngIf="!isAuthenticated()">Welcome, to WeBill!</h1>
+        <h1 id="home-logged-message" *ngIf="isAuthenticated() && account">Welcome! {{account.firstName}}</h1>
+
+        <p class="lead">WeBill is here to help you to manage your electricity bills.</p>
+
+
+        <!-- For no authenticated user -->
+        <div [ngSwitch]="!isAuthenticated()">
+            <div *ngSwitchCase="true">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="mt-1 d-none d-md-inline">
+                            You don't have an account?:
+                        </h4>
+                        <h4 class="mt-1 d-sm-none">
+                            Points for:
+                        </h4>
+                    </div>
+                    <div class="col-3 col-xs-2 text-right">
+                        <a [routerLink]="['register']" class="btn btn-primary m-0 mb-1 text-white">Register</a>
+                    </div>
+                </div>
+                <div class="row">
+                   <div class="col-md-11 col-xs-12">
+                       <ngb-alert [dismissible]="false">
+                                <span>
+                                    Please register and enjoy the application!</span>
+                       </ngb-alert>
+                   </div>
+                </div>
+            </div>
+        </div>
+
+        <!--For the consumer -->
+        <div *jhiHasAnyAuthority="'ROLE_CONSUMER'">
+            <!--If the have already affected the user to a meters -->
+            <div *ngIf="hasAffected">
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="mt-1 d-none d-md-inline">
+                            Your last bills captures sent:
+                        </h4>
+                    </div>
+                    <div class="col-3 col-xs-2 text-right">
+                        <a [routerLink]="['/billsend/new']" class="btn btn-primary m-0 mb-1 text-white">Send bill capture</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11 col-xs-12">
+                        <ngb-alert [dismissible]="false">
+                                    <span>
+                                        You did not yet submitted a bill capture!
+                                    </span>
+                        </ngb-alert>
+                    </div>
+                </div>
+            </div>
+            <!--If the have already affected the user to a meters -->
+            <div *ngIf="!hasAffected">
+                <div class="row">
+                    <div class="col-md-11 col-xs-12">
+                        <ngb-alert [dismissible]="false">
+                                    <span>
+                                        Please wait until an administrator issues your application.
+                                    </span>
+                        </ngb-alert>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

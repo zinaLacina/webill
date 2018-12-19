@@ -1,0 +1,105 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-assign-meters-heading">Create or edit a Assign Meters</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!assignMeters.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="assignMeters.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_metersUser">Consumer</label>
+                    <select class="form-control" id="field_metersUser" name="metersUser" [(ngModel)]="assignMeters.metersUser" [required]="!assignMeters.id" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === assignMeters.metersUser?.id ? assignMeters.metersUser : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_historyMeterUser">Meters</label>
+                    <select class="form-control" id="field_historyMeterUser" name="historyMeterUser" [(ngModel)]="assignMeters.historyMeterUser" [required]="true" [disabled]="assignMeters.id" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="metersOption.id === assignMeters.historyMeterUser?.id ? assignMeters.historyMeterUser : metersOption" *ngFor="let metersOption of meters; trackBy: trackMetersById">{{metersOption.addressMeters}}</option>
+                    </select>
+                </div>
+                <!--Start date input -->
+                <div class="form-group" [hidden]="assignMeters.id">
+                    <label class="form-control-label" for="field_date">Start date contract</label>
+                    <div class="input-group">
+                        <input [hidden]="assignMeters.id" id="field_date" type="text" class="form-control" name="startDateContract" ngbDatepicker  #dateStart="ngbDatepicker" [(ngModel)]="assignMeters.startDateContract"
+                               required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary" (click)="dateStart.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.startDateContract?.dirty && editForm.controls.startDateContract?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.startDateContract?.errors?.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <!--End date input-->
+                <div class="form-group" [hidden]="!assignMeters.id">
+                    <label class="form-control-label" for="field_date_end">End date contract</label>
+                    <div class="input-group">
+                        <input [hidden]="!assignMeters.id" id="field_date_end" type="text" class="form-control" name="endDateContract" ngbDatepicker  #dateEnd="ngbDatepicker" [(ngModel)]="assignMeters.endDateContract"
+                               />
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary" (click)="dateEnd.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <!--<div [hidden]="!(editForm.controls.endDateContract?.dirty && editForm.controls.endDateContract?.invalid)">-->
+                        <!--<small class="form-text text-danger"-->
+                               <!--[hidden]="!editForm.controls.endDateContract?.errors?.required">-->
+                            <!--This field is required.-->
+                        <!--</small>-->
+                    <!--</div>-->
+                </div>
+
+                <!--Reason textarea -->
+                <div class="form-group" [hidden]="!assignMeters.id">
+                    <label class="form-control-label" for="field_reason">The reason of the end</label>
+                    <textarea [hidden]="!assignMeters.id" class="form-control" name="reasonEnd" id="field_reason" [(ngModel)]="assignMeters.reasonEnd" maxlength="140" rows="3"></textarea>
+                    <div [hidden]="!(editForm.controls.reasonEnd?.dirty && editForm.controls.reasonEnd?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.reasonEnd?.errors?.maxlength">
+                            This field cannot be longer than 140 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_enabled">Enabled</label>
+                    <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                        [(ngModel)]="assignMeters.enabled" [checked]="true"  />
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" for="field_createdAt">Created At</label>-->
+                    <!--<div class="d-flex">-->
+                        <!--<input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" [(ngModel)]="createdAt"-->
+                        <!--/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" for="field_updateAt">Update At</label>-->
+                    <!--<div class="d-flex">-->
+                        <!--<input id="field_updateAt" type="datetime-local" class="form-control" name="updateAt" [(ngModel)]="updateAt"-->
+                        <!--/>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

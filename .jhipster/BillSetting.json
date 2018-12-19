@@ -1,0 +1,49 @@
+{
+    "name": "BillSetting",
+    "fields": [
+        {
+            "fieldName": "typeBill",
+            "fieldType": "TypeBill",
+            "fieldValues": "COMPANY,LOYALCUSTOMER,NORMALCUSTOMER,GOVERNEMENT"
+        },
+        {
+            "fieldName": "pricePerKW",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "discount",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "tax",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "processing",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "enabled",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "dateCreated",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "dateModified",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181016140104",
+    "javadoc": "BillSetting entity.\n@author CreativeGoup.",
+    "entityTableName": "bill_setting",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "no",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

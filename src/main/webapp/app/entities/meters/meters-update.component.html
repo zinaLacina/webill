@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-meters-heading">Create or edit a Meters</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <jhi-alert-error></jhi-alert-error>
+                    <div class="form-group" [hidden]="!meters.id">
+                        <label for="id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id"
+                               [(ngModel)]="meters.id" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_addressMeters">Address Meters</label>
+                        <input type="text" class="form-control" name="addressMeters" id="field_addressMeters"
+                               [(ngModel)]="meters.addressMeters" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_latituude">Latituude</label>
+                        <input type="number" class="form-control" name="latituude" id="field_latituude"
+                               [(ngModel)]="latitude" value="34.6913" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_longitude">Longitude</label>
+                        <input type="number" class="form-control" name="longitude" id="field_longitude"
+                               [(ngModel)]="longitude" value="135.1830" readonly/>
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="form-control-label" for="field_qrCode">Qr Code</label>-->
+                        <!--<div>-->
+                            <!--<div *ngIf="meters.qrCode" class="form-text text-danger clearfix">-->
+                                <!--<a class="pull-left" (click)="openFile(meters.qrCodeContentType, meters.qrCode)">open</a><br>-->
+                                <!--<span class="pull-left">{{meters.qrCodeContentType}}, {{byteSize(meters.qrCode)}}</span>-->
+                                <!--<button type="button" (click)="meters.qrCode=null;meters.qrCodeContentType=null;"-->
+                                        <!--class="btn btn-secondary btn-xs pull-right">-->
+                                    <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                                <!--</button>-->
+                            <!--</div>-->
+                            <!--<input type="file" id="file_qrCode" (change)="setFileData($event)"/>-->
+                        <!--</div>-->
+                        <!--<input type="hidden" class="form-control" name="qrCode" id="field_qrCode"-->
+                               <!--[(ngModel)]="meters.qrCode" />-->
+
+                    <!--</div>-->
+
+                    <!--<div class="form-group">-->
+                        <!--<label class="form-control-label" for="field_dateCreated">Date Created</label>-->
+                        <!--<div class="d-flex">-->
+                            <!--<input id="field_dateCreated" type="datetime-local" class="form-control" name="dateCreated" [(ngModel)]="dateCreated"-->
+                            <!--/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group">-->
+                        <!--<label class="form-control-label" for="field_dateModified">Date Modified</label>-->
+                        <!--<div class="d-flex">-->
+                            <!--<input id="field_dateModified" type="datetime-local" class="form-control" name="dateModified" [(ngModel)]="dateModified"-->
+                            <!--/>-->
+                        <!--</div>-->
+                    <!--</div>-->
+
+                </div>
+                <div class="col-md-7">
+                    <agm-map [latitude]="lat" [longitude]="lng" (mapClick)="onChangeLocation($event)">
+                        <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                    </agm-map>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Bills.
+    -->
+    <changeSet id="20181016140108-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="owner_user_id"
+                                 baseTableName="bills"
+                                 constraintName="fk_bills_owner_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="verifier_user_id"
+                                 baseTableName="bills"
+                                 constraintName="fk_bills_verifier_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="verifier_metric_bill_id"
+                                 baseTableName="bills"
+                                 constraintName="fk_bills_verifier_metric_bill_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="assign_meters"/>
+
+        <addForeignKeyConstraint baseColumnNames="bill_setting_app_id"
+                                 baseTableName="bills"
+                                 constraintName="fk_bills_bill_setting_app_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="bill_setting"/>
+
+    </changeSet>
+</databaseChangeLog>

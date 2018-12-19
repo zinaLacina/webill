@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="assignMeters">
+            <h2><span>Assign Meters</span> {{assignMeters.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Meters User</span></dt>
+                <dd>
+                    {{assignMeters.metersUser?.login}}
+                </dd>
+                <dt><span> Meter address</span></dt>
+                <dd>
+                    <div *ngIf="assignMeters.historyMeterUser">
+                        <a [routerLink]="['/meters', assignMeters.historyMeterUser?.id, 'view']">{{assignMeters.historyMeterUser?.addressMeters}}</a>
+                    </div>
+                </dd>
+                <dt><span>Start Date Contract</span></dt>
+                <dd>
+                    <span>{{assignMeters.startDateContract}}</span>
+                </dd>
+                <dt><span>End Date Contract</span></dt>
+                <dd>
+                    <span>{{assignMeters.endDateContract}}</span>
+                </dd>
+                <dt><span>Reason End</span></dt>
+                <dd>
+                    <span>{{assignMeters.reasonEnd}}</span>
+                </dd>
+                <dt><span>Enabled</span></dt>
+                <dd>
+                    <span>{{assignMeters.enabled}}</span>
+                </dd>
+                <dt><span>Created At</span></dt>
+                <dd>
+                    <span>{{assignMeters.createdAt}}</span>
+                </dd>
+                <dt><span>Update At</span></dt>
+                <dd>
+                    <span>{{assignMeters.updateAt}}</span>
+                </dd>
+
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/assign-meters', assignMeters.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

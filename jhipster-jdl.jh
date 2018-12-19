@@ -1,0 +1,106 @@
+enum TypeBill {
+	COMPANY,
+    LOYALCUSTOMER,
+    NORMALCUSTOMER,
+    GOVERNEMENT
+}
+/**
+ * Setting entity.
+ * @author CreativeGoup.
+ */
+entity Setting {
+    companyName String,
+    companyLogo Blob,
+    companyNumber String,
+    companyAddress String,
+    dateCreated Instant,
+    dateModified Instant
+}
+
+/**
+ * BillSetting entity.
+ * @author CreativeGoup.
+ */
+entity BillSetting {
+	typeBill TypeBill,
+    pricePerKW Double,
+    discount Double,
+    tax Double,
+    processing Double,
+    enabled Boolean,
+    dateCreated Instant,
+    dateModified Instant
+}
+
+/**
+ * Meters entity.
+ * @author CreativeGoup.
+ */
+entity Meters {
+	latituude Double,
+    longitude Double,
+    qrCode Blob,
+    addressMeters String,
+    dateCreated Instant,
+    dateModified Instant
+}
+
+/**
+ * Notifications entity.
+ * @author CreativeGoup.
+ */
+entity Notifications {
+	message String,
+    checked Boolean,
+    createdAt Instant,
+    updateAt Instant
+}
+
+/**
+ * HistoryMeters entity.
+ * @author CreativeGoup.
+ */
+entity AssignMeters {
+	startMonth Integer,
+    endMonth Integer,
+    startDay Integer,
+    endDay Integer,
+    year Integer,
+    reasonEnd String,
+    enabled Boolean,
+    createdAt Instant,
+    updateAt Instant
+}
+
+/**
+ * Bills entity.
+ * @author CreativeGoup.
+ */
+entity Bills {
+	lastMonthReading Integer,
+    currentMonthReading Integer,
+    deadline Instant,
+    billFile Blob,
+    imageFile Blob,
+    amount Double,
+    enabled Boolean,
+    dateCreated Instant,
+    dateModified Instant
+}
+
+relationship ManyToOne {
+	Notifications{SenderUser} to User,
+    Notifications{ReceiverUser} to User,
+    
+    Bills{OwnerUser} to User,
+    Bills{VerifierUser} to User,
+    Bills{VerifierMetricBill} to AssignMeters,
+    Bills{BillSettingApp} to BillSetting
+}
+relationship ManyToOne{
+	AssignMeters{MetersUser} to User,
+    AssignMeters{HistoryMeterUser} to Meters,
+}
+
+
+paginate * with pagination

@@ -1,0 +1,143 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-bill-setting-heading">Create or edit a Bill Setting</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!billSetting.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="billSetting.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_typeBill">Type Bill</label>
+                    <select class="form-control" name="typeBill" [(ngModel)]="billSetting.typeBill" [disabled]="billSetting.id"
+                            id="field_typeBill" required #typeBill="ngModel">
+                        <option value="COMPANY">COMPANY</option>
+                        <option value="LOYALCUSTOMER">LOYALCUSTOMER</option>
+                        <option value="NORMALCUSTOMER">NORMALCUSTOMER</option>
+                        <option value="GOVERNEMENT">GOVERNEMENT</option>
+                    </select>
+                    <div *ngIf="typeBill.dirty && typeBill.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="typeBill.errors.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_pricePerKW">Price Per KW</label>
+                    <input type="number" class="form-control" name="pricePerKW" id="field_pricePerKW" #pricePer="ngModel"
+                        [(ngModel)]="billSetting.pricePerKW" required min="5" max="2000" /> <strong>円</strong>
+                    <div *ngIf="pricePer.dirty && pricePer.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="pricePer.errors.required">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="pricePer.errors.max">
+                            This field cannot be longer than 2000<strong>円</strong>.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="pricePer.errors.min">
+                            This field cannot be less than 5<strong>円</strong> .
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_discount">Discount</label>
+                    <input type="number" class="form-control" name="discount" id="field_discount" #discount="ngModel"
+                        [(ngModel)]="billSetting.discount" required max="100" min="0"/><strong>%</strong>
+                    <div *ngIf="discount.dirty && discount.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="discount.errors.required">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="discount.errors.max">
+                            This field cannot be longer than 100<strong>%</strong>.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="discount.errors.min">
+                            This field cannot be less than 0<strong>%</strong> .
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tax">Tax</label>
+                    <input type="number" class="form-control" name="tax" id="field_tax" #tax="ngModel"
+                        [(ngModel)]="billSetting.tax" required max="100" min="0"/><strong>%</strong>
+                    <div *ngIf="tax.dirty && tax.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="tax.errors.required">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="tax.errors.max">
+                            This field cannot be longer than 100<strong>%</strong>.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="tax.errors.min">
+                            This field cannot be less than 0<strong>%</strong> .
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_processing">Processing</label>
+                    <input type="number" class="form-control" name="processing" id="field_processing" #precessing="ngModel"
+                        [(ngModel)]="billSetting.processing" required max="5000" min="0"/><strong>円</strong>
+                    <div *ngIf="precessing.dirty && precessing.invalid">
+                        <small class="form-text text-danger"
+                               *ngIf="precessing.errors.required">
+                            This field is required.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="precessing.errors.max">
+                            This field cannot be longer than 5000<strong>円</strong>.
+                        </small>
+
+                        <small class="form-text text-danger"
+                               *ngIf="precessing.errors.min">
+                            This field cannot be less than 0<strong>円</strong> .
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_enabled">Enabled</label>
+                    <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                        [(ngModel)]="billSetting.enabled" [checked]="true"/>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" for="field_dateCreated">Date Created</label>-->
+                    <!--<div class="d-flex">-->
+                        <!--<input id="field_dateCreated" type="datetime-local" class="form-control" name="dateCreated" [(ngModel)]="dateCreated"-->
+                        <!--/>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label class="form-control-label" for="field_dateModified">Date Modified</label>-->
+                    <!--<div class="d-flex">-->
+                        <!--<input id="field_dateModified" type="datetime-local" class="form-control" name="dateModified" [(ngModel)]="dateModified"-->
+                        <!--/>-->
+                    <!--</div>-->
+                <!--</div>-->
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

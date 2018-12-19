@@ -1,0 +1,77 @@
+<div>
+    <h2 id="page-heading">
+        <span>My bills</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-billsend" [routerLink]="['/billsend/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Send new image
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="billsends">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="image"><span>Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="uploadedContent"><span>Content of image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateCreated"><span>Date Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dateModified"><span>Date Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let billsend of billsends ;trackBy: trackId" [ngClass]="[billsend.enabled==true?'green':'orange', billsend.notRejected==false?'red':'']" >
+                <td><a [routerLink]="['/billsend', billsend.id, 'view' ]">{{billsend.id}}</a></td>
+                <td>
+                    <img [src]="billsend.imageFile" alt="" width="50px" height="auto">
+                </td>
+                <td>{{billsend.uploadedContent}}</td>
+                <td>{{billsend.dateCreated | date:'medium'}}</td>
+                <td>{{billsend.dateModified | date:'medium'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit" [ngClass]="billsend.enabled==true?'btn btn-info btn-sm green':'btn btn-info btn-sm red'"
+                                [routerLink]="['/billsend', billsend.id, 'view' ]"
+                                 *ngIf="billsend.enabled">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">show my bill</span>
+                        </button>
+                        <button type="submit" [ngClass]="billsend.enabled==true?'btn btn-info btn-sm green':'btn btn-info btn-sm red'"
+                                [routerLink]="['/billsend', billsend.id, 'view' ]"
+                                *ngIf="!billsend.enabled">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">show my submission</span>
+                        </button>
+
+                        <!--<button type="submit"-->
+                                <!--[routerLink]="['/billsend', billsend.id, 'edit']"-->
+                                <!--class="btn btn-primary btn-sm">-->
+                            <!--<fa-icon [icon]="'pencil-alt'"></fa-icon>-->
+                            <!--<span class="d-none d-md-inline">Edit</span>-->
+                        <!--</button>-->
+                        <!--<button type="submit"-->
+                                <!--[routerLink]="['/', { outlets: { popup: 'billsend/'+ billsend.id + '/delete'} }]"-->
+                                <!--replaceUrl="true"-->
+                                <!--queryParamsHandling="merge"-->
+                                <!--class="btn btn-danger btn-sm">-->
+                            <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                            <!--<span class="d-none d-md-inline">Delete</span>-->
+                        <!--</button>-->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--<div *ngIf="billsends && billsends.length">-->
+        <!--<div class="row justify-content-center">-->
+            <!--<jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>-->
+        <!--</div>-->
+        <!--<div class="row justify-content-center">-->
+            <!--<ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>-->
+        <!--</div>-->
+    <!--</div>-->
+</div>

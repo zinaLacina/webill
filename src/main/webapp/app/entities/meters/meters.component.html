@@ -1,0 +1,108 @@
+<div>
+    <h2 id="page-heading">
+        <span>Meters</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-meters" [routerLink]="['/meters/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Meter
+            </span>
+        </button>
+
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <ngb-tabset #t="ngbTabset">
+
+        <!--Ordinary list of marker-->
+
+        <ngb-tab id="tab-selectbyid1" title="Simple List">
+            <ng-template ngbTabContent>
+                <br>
+                <div class="table-responsive" *ngIf="meters">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="latituude"><span>Latituude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="longitude"><span>Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="qrCode"><span>Qr Code</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="addressMeters"><span>Address Meters</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="dateCreated"><span>Date Created</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="dateModified"><span>Date Modified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let meters of meters ;trackBy: trackId">
+                            <td><a [routerLink]="['/meters', meters.id, 'view' ]">{{meters.id}}</a></td>
+                            <td>{{meters.latituude}}</td>
+                            <td>{{meters.longitude}}</td>
+                            <td>
+                     <span *ngIf="meters.qrCode">
+                        <img [src]="meters.qrCode" alt="" width="50px" height="auto">
+                    </span>
+                            </td>
+                            <td>{{meters.addressMeters}}</td>
+                            <td>{{meters.dateCreated | date:'medium'}}</td>
+                            <td>{{meters.dateModified | date:'medium'}}</td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            [routerLink]="['/meters', meters.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/meters', meters.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', { outlets: { popup: 'meters/'+ meters.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="meters && meters.length">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+
+
+        <!--Show marker on google maps-->
+
+        <ngb-tab id="tab-selectbyid2">
+            <ng-template ngbTabTitle>Maps</ng-template>
+            <ng-template ngbTabContent>
+                <br>
+                <agm-map [latitude]="lat" [longitude]="lng" id="map-list">
+
+                        <agm-marker *ngFor="let meters of meters"
+                                    [latitude]="meters.latituude!=null?meters.latituude:lat"
+                                    [longitude]="meters.longitude!=null?meters.longitude:lng">
+                        </agm-marker>
+
+                </agm-map>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+
+
+
+</div>

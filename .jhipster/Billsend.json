@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "image",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dateCreated",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "dateModified",
+            "fieldType": "Instant"
+        }
+    ],
+    "changelogDate": "20181111144153",
+    "dto": "no",
+    "searchEngine": false,
+    "service": "no",
+    "entityTableName": "billsend",
+    "jpaMetamodelFiltering": false,
+    "pagination": "pagination"
+}

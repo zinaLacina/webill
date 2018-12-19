@@ -1,0 +1,47 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="notifications">
+            <h2><span>Notifications</span> {{notifications.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Message</span></dt>
+                <dd>
+                    <span>{{notifications.message}}</span>
+                </dd>
+                <dt><span>Checked</span></dt>
+                <dd>
+                    <span>{{notifications.checked}}</span>
+                </dd>
+                <dt><span>Created At</span></dt>
+                <dd>
+                    <span>{{notifications.createdAt}}</span>
+                </dd>
+                <dt><span>Update At</span></dt>
+                <dd>
+                    <span>{{notifications.updateAt}}</span>
+                </dd>
+                <dt><span>Sender User</span></dt>
+                <dd>
+                    {{notifications.senderUser?.id}}
+                </dd>
+                <dt><span>Receiver User</span></dt>
+                <dd>
+                    {{notifications.receiverUser?.id}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/notifications', notifications.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

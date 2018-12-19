@@ -1,0 +1,64 @@
+<!-- node_modules/angular-calendar/dist/css/angular-calendar.css -->
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="btn-group">
+            <div
+                class="btn btn-primary"
+                mwlCalendarPreviousView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChanged()">
+                Previous
+            </div>
+            <div
+                class="btn btn-outline-secondary"
+                mwlCalendarToday
+                [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChanged()">
+                Today
+            </div>
+            <div
+                class="btn btn-primary"
+                mwlCalendarNextView
+                [view]="view"
+                [(viewDate)]="viewDate"
+                (viewDateChange)="viewDateChanged()">
+                Next
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+    </div>
+    <div class="col-md-4">
+        <div class="btn-group">
+            <div
+                class="btn btn-primary"
+                (click)="view = 'month'"
+                [class.active]="view === 'month'">
+                Month
+            </div>
+            <div
+                class="btn btn-primary"
+                (click)="view = 'week'"
+                [class.active]="view === 'week'">
+                Week
+            </div>
+            <div
+                class="btn btn-primary"
+                (click)="view = 'day'"
+                [class.active]="view === 'day'">
+                Day
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+
+<jhi-alert></jhi-alert>
+<button type="button" class="btn btn-outline-primary btn-sm mt-2 float-right" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="day-notes">
+    {{(isCollapsed ? 'show' : 'hide')}}
+    <span>Notifications</span>
+</button>

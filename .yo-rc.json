@@ -1,0 +1,34 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.webill"
+    },
+    "jhipsterVersion": "5.4.2",
+    "applicationType": "monolith",
+    "baseName": "webill",
+    "packageName": "com.webill",
+    "packageFolder": "com/webill",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ZGEzNzE3OTBiZmE2ZTEzY2Y5YTUyYTkxNzExMjFiNzU3OTliZDIwNGE1NTU2NDQ0YjhiMDY2NDI3OTRjZTFkNjE4YzI0NjQ0NDIzODI4NmI1NDk1YjBlMjMyNGZmOWM2ZTI4NTQ5Njg2OGRlNjRlZmQ3MjMwZmM5YWQ3OTY5ZTc=",
+    "clientFramework": "angularX",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "enableTranslation": false,
+    "herokuAppName": "kicwebill",
+    "herokuDeployType": "jar"
+  }
+}

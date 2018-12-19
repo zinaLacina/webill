@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-notifications-heading">Create or edit a Notifications</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!notifications.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="notifications.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_message">Message</label>
+                    <input type="text" class="form-control" name="message" id="field_message"
+                        [(ngModel)]="notifications.message" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_checked">Checked</label>
+                    <input type="checkbox" class="form-control" name="checked" id="field_checked"
+                        [(ngModel)]="notifications.checked" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdAt">Created At</label>
+                    <div class="d-flex">
+                        <input id="field_createdAt" type="datetime-local" class="form-control" name="createdAt" [(ngModel)]="createdAt"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_updateAt">Update At</label>
+                    <div class="d-flex">
+                        <input id="field_updateAt" type="datetime-local" class="form-control" name="updateAt" [(ngModel)]="updateAt"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_senderUser">Sender User</label>
+                    <select class="form-control" id="field_senderUser" name="senderUser" [(ngModel)]="notifications.senderUser" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === notifications.senderUser?.id ? notifications.senderUser : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_receiverUser">Receiver User</label>
+                    <select class="form-control" id="field_receiverUser" name="receiverUser" [(ngModel)]="notifications.receiverUser" >
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="userOption.id === notifications.receiverUser?.id ? notifications.receiverUser : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
